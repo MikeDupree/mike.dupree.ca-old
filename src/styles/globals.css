@@ -12,7 +12,12 @@ a {
 }
 
 * {
+  font-family: 'Audiowide', cursive!important;
   box-sizing: border-box;
+}
+
+.social-icon.github > div > svg > g:nth-child(3) {
+  fill: white!important;
 }
 
 @media (prefers-color-scheme: dark) {
