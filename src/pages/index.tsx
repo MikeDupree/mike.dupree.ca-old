@@ -1,9 +1,9 @@
-import { Grid, Typography } from "@mui/material";
-import type { NextPage } from "next";
+import { Grid, Typography, Menu, MenuItem } from "@mui/material";
+import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-
+import axios from "axios";
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
@@ -61,8 +61,42 @@ const Home: NextPage = () => {
           />
         </Grid>
       </Grid>
+
+ <Grid
+        container
+        sx={{
+          margin: "4rem 0 2rem",
+          display:'flex',
+          justifyContent:'center'
+        }}
+      >
+        <Typography variant="h4" sx={{textAlign: 'center'}}>
+          "I like Rust, and maybe 3 people."
+        </Typography>
+
+      </Grid>
+
     </div>
   );
 };
 
 export default Home;
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  console.log("context", context);
+  const activitiyResponse = await axios.get(
+    `https://gitlab.com/api/v4/projects/39317118/repository/commits`,
+    {
+      headers: {
+        "PRIVATE-TOKEN": "glpat-o71d8smK1ZRLf-NCZ91Q",
+      },
+    }
+  ).catch(err => console.log);
+
+  const emails = ["mikerdupree@gmail.com", "cryptoasis.mail@gmail.com"];
+  const cleanData = activitiyResponse?.data?.filter((r) =>
+    emails.includes(r.author_email)
+  );
+  console.log("res data", activitiyResponse?.data);
+  return { props: {} };
+};

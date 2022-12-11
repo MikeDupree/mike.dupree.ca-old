@@ -1,9 +1,10 @@
-import { AppBar, Container, Box, styled, Toolbar, Button } from "@mui/material";
+import { AppBar, Container, Box, styled, Toolbar, Button, IconButton, Avatar} from "@mui/material";
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import styles from "./Header.styles";
 import { SocialIcon } from "react-social-icons";
+import { useSession, signIn, signOut } from "next-auth/react"
 
 const AppHeader = styled(AppBar)(styles);
 type Props = {};
@@ -50,16 +51,14 @@ const socialLinks: Link[] = [
 ];
 
 const Header = (props: Props) => {
+  const { data: session } = useSession()
+
   return (
-    <AppBar className="Header" position="static">
+    <AppBar className="Header" position="static" style={{backgroundImage:'none'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+
             <Image
               src="/Images/logo.png"
               width="75"
@@ -67,40 +66,35 @@ const Header = (props: Props) => {
               alt="dupree.ca logo"
               style={{ borderRadius: "50%" }}
             />
-
-            <Box
-              sx={{
-                margin: "0 25px",
-              }}
-            >
-              {links.map((link: Link) => (
-                <Link
-                  key={link.machineName}
-                  href={link.uri}
-                  style={{ margin: "0 10px" }}
+            {links.map((link) => (
+              <Link key={link.label} href={link.uri}>
+                <Button
+                  sx={{ my: 2, color: 'white', display: 'block' }}
                 >
-                  <Button variant="text">{link.label}</Button>
-                </Link>
-              ))}
-            </Box>
+                  {link.label}
+                </Button>
+              </Link>
+            ))}
+          </Box>
 
-            <Box sx={{ flexGrow: 1 }}></Box>
-
-            <Box
-              sx={{
-                margin: "0 25px",
-              }}
-            >
+          <Box sx={{ flexGrow: 0 }}>
               {socialLinks.map((link: Link) => (
+  
                 <SocialIcon
                   className={link.machineName}
                   key={link.machineName}
                   url={link.uri}
-                  style={{ margin: "0 5px" }}
-                />
+                  style={{ margin: "0 5px", width: '25px', height: '25px' }}
+                  />
               ))}
-            </Box>
+
+            {session ? (
+<button onClick={() => signOut()}>Sign out</button>
+            ) : (
+            <button onClick={() => signIn()}>Sign in</button> 
+            )}
           </Box>
+
         </Toolbar>
       </Container>
     </AppBar>
