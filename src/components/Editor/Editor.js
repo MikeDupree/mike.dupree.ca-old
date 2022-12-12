@@ -56,7 +56,7 @@ const Editor = (props) => {
           <Col>
             <div style={{display: 'flex'}}>
                
-               <Button ghost color="secondary" onClick={() => onSaveHandler(editorInstance)}>Save</Button>
+               <Button ghost color="secondary" onClick={() => {}}>Save</Button>
                <Button contained color="primary" disabled>Publish</Button>
             </div>
           </Col>
