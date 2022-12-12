@@ -71,7 +71,7 @@ const Home: NextPage = () => {
         }}
       >
         <Typography variant="h4" sx={{textAlign: 'center'}}>
-          "I like Rust, and maybe 3 people."
+          &quot;I like Rust, and maybe 3 people.&quot;
         </Typography>
 
       </Grid>

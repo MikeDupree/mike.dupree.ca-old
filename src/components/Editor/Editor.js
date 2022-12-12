@@ -1,15 +1,23 @@
+'use client';
 import { useEffect, useState } from 'react';
 import { Button, Container, Input, TextArea, Checkbox, Row, Col } from '@nextui-org/react';
 import Head from 'next/head';
-import dynamic from 'next/dynamic';
-const EditorJs = dynamic(() => import('react-editor-js'), { ssr: false });
 
-let editorInstance;
+import { useEditor, EditorContent } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
 
 const Editor = (props) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [editorTools, setEditorTools] = useState();
+  const [value, setValue] = useState("**Hello world!!!**");
+
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+    ],
+    content: '<p>Hello World! 🌎️</p>',
+  })
 
   const onSaveHandler = async (editorInstance) => {
     try {
@@ -23,30 +31,6 @@ const Editor = (props) => {
       console.log(err);
     }
   };
-
-  let editorComponent;
-  if (!editorTools) editorComponent = 'Loading...';
-  else{
-    editorComponent = (
-      <EditorJs
-        className="edit-article-body"
-        instanceRef={(instance) => (editorInstance = instance)}
-        tools={editorTools}
-        placeholder={`What are we writing about ?`}
-      />
-    );
-  }
-
-
-  useEffect(() => {
-    const importConstants = async () => {
-      const tools = (await import('../../components/Editor/EditorConstants'))
-        .default;
-      setEditorTools(tools);
-    };
-
-    importConstants();
-  }, []);
 
   const inputStyle = {
     maxWidth: '500px',
@@ -79,8 +63,9 @@ const Editor = (props) => {
         </Row>
         <Row>
           <Col>
-            {editorComponent}
-          </Col>
+                <EditorContent editor={editor} />
+
+              </Col>
         </Row>
       </Container>
     </div>

@@ -9,6 +9,8 @@ import createEmotionCache from "../theme/createEmotionCache";
 
 import { SessionProvider } from "next-auth/react"
 
+import 'react-markdown-editor-lite/lib/index.css';
+
 const clientSideEmotionCache = createEmotionCache();
 
 interface MyAppProps extends AppProps {
