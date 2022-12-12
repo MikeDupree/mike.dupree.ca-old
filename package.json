@@ -9,15 +9,24 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@editorjs/delimiter": "^1.2.0",
+    "@editorjs/editorjs": "^2.22.1",
+    "@editorjs/embed": "^2.4.6",
+    "@editorjs/header": "^2.6.1",
+    "@editorjs/list": "^1.6.2",
+    "@editorjs/marker": "^1.2.2",
+    "@editorjs/paragraph": "^2.8.0",
     "@emotion/react": "^11.10.4",
     "@emotion/server": "^11.10.0",
     "@emotion/styled": "^11.10.4",
     "@mui/material": "^5.10.4",
     "axios": "^0.27.2",
+    "mongodb": "^4.12.1",
     "next": "12.2.5",
     "next-auth": "^4.18.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-editor-js": "^2.1.0",
     "react-social-icons": "^5.14.0"
   },
   "devDependencies": {
