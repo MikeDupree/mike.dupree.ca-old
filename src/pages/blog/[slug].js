@@ -1,4 +1,3 @@
-import Output from 'editorjs-react-renderer';
 import axios from 'axios';
 import {Container, Row, Col, Text, User } from '@nextui-org/react';
 
@@ -38,9 +37,6 @@ const BlogDetail = (props) => {
     <Row>
       <Col>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <Output
-            data={data.body}
-          />
         </div>
       </Col>
     </Row>

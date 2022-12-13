@@ -12,7 +12,7 @@ const Layout = ({ children }: Props) => {
   return (
     <Container maxWidth="xl">
       <Header />
-      <Container>{children}</Container>
+      <Container sx={{ paddingTop: "75px" }}>{children}</Container>
     </Container>
   );
 };

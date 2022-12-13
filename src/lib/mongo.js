@@ -19,7 +19,6 @@ const dbUri = MONGODB_URI;
 
 /**
  * Connect to MondoDB
- * @returns {Promise<MongoClient>}
  */
 export async function connectToDatabase() {
   if (cachedClient && cachedDb) {

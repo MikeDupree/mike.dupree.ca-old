@@ -54,7 +54,7 @@ const Header = (props: Props) => {
   const { data: session } = useSession()
 
   return (
-    <AppBar className="Header" position="static" style={{backgroundImage:'none'}}>
+    <AppBar className="Header" style={{backgroundImage:'none'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
