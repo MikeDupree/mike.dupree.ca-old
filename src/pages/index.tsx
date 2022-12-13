@@ -85,7 +85,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const activitiyResponse = await axios
     .get(`https://gitlab.com/api/v4/projects/39317118/repository/commits`, {
       headers: {
-        "PRIVATE-TOKEN": "glpat-o71d8smK1ZRLf-NCZ91Q",
+        "PRIVATE-TOKEN": process.env.GITLAB_TOKEN,
       },
     })
     .catch((err) => console.log);
