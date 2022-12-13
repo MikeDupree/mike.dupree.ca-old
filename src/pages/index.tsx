@@ -90,7 +90,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     })
     .catch((err) => console.log);
 
-  const emails = ["mikerdupree@gmail.com", "cryptoasis.mail@gmail.com"];
+  const emails = ["mikerdupree@gmail.com"];
   const cleanData = activitiyResponse?.data?.filter((r) =>
     emails.includes(r.author_email)
   );
