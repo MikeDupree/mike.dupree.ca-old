@@ -39,11 +39,12 @@ export default async function handler(
 const getArticles = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const { path } = req.query;
   const db = await connectToDatabase();
-
+  console.log("path", path);
+  const filter = path ? { path } : {};
   try {
     const articles = (await db
       .collection(COLLECTION)
-      .find({ path })
+      .find(path)
       .toArray()) as Article[];
     return res.status(200).json({
       message: "Articles",
