@@ -1,23 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { connectToDatabase } from "../../lib/mongo";
-
+import {Article, EditorData} from "../../index.types"
 const COLLECTION = "Articles";
-
-interface EditorData {
-  time: number;
-  blocks: any[];
-  version: string;
-}
-
-interface Article {
-  title: string;
-  description: string;
-  body: EditorData;
-  tags: string[];
-  path: string;
-  author: string;
-  published: boolean;
-}
 
 type Data = {
   message: string;
@@ -41,16 +25,18 @@ const getArticles = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const db = await connectToDatabase();
   console.log("path", path);
   const filter = path ? { path } : {};
+  console.log('filter', filter)
   try {
     const articles = (await db
       .collection(COLLECTION)
-      .find(path)
+      .find(filter)
       .toArray()) as Article[];
     return res.status(200).json({
       message: "Articles",
       articles,
     });
   } catch (err) {
+    console.log('err', err)
     return res.status(500).json({
       message: "Error loading articles",
       articles: [],

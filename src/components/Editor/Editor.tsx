@@ -4,7 +4,7 @@ import {
   Button,
   Container,
   Input,
-  TextArea,
+  Textarea,
   Checkbox,
   Row,
   Col,
@@ -14,38 +14,37 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import styles from "./Editor.styles";
 import axios from "axios";
+import { EditorProps } from "./Editor.types";
 
 const StyledEditor = styled("div")(styles);
-
-const Editor = (props) => {
+const Editor = ({ editable = true, content }: EditorProps) => {
   const [title, setTitle] = useState("");
 
   const editor = useEditor({
     extensions: [StarterKit],
-    content: "",
+    content,
     autofocus: true,
-    editable: true,
+    editable,
   });
 
-  console.log("editor", editor);
   const onSaveHandler = async () => {
+    if (!editor) return;
     try {
       const content = editor.getJSON();
-      console.log("title", title);
-      console.log("content", content);
       if (!title || title === "")
         throw new Error("Title cannot be empty. Please enter title");
-      props.onSave(content, title);
 
-      axios.post('/api/article', {
-        title,
-        content,
-        tags: ['test'],
-        path: title.toLowerCase().replaceAll(" ", "-"),
-        published: false
-      }).then(res => {
-          console.log("Success!", res)
+      axios
+        .post("/api/article", {
+          title,
+          content,
+          tags: ["test"],
+          path: title.toLowerCase().replaceAll(" ", "-"),
+          published: false,
         })
+        .then((res) => {
+          console.log("Success!", res);
+        });
     } catch (err) {
       console.log(err);
     }
